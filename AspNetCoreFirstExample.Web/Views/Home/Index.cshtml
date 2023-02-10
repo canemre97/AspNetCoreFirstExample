@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        swal.fire("Merhaba", "Hoşgeldiniz!", "question");
+
+        $(document).ready(function () {
+            console.log("hazır");
+        });
+
+        $(() => {
+            console.log("Sayfa yüklendi");
+        });
+
+    </script>
+}
+
+@section Css
+    {
+    <link href="~/css/example.css" rel="stylesheet" />
+    <style>
+        h1 {
+            color: yellowgreen;
+            background-color: dimgray;
+        }
+
+    </style>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <hr/>
+    <h2 class="display-4">Welcome</h2>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<partial name="_MenuPartialView" />
+
+@await Html.PartialAsync("_MenuPartialView")
+
+@Html.Partial("_MenuPartialView")

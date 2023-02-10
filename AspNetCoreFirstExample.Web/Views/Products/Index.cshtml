@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+@section Scripts
+    {
+    @if (TempData["status"] != null)
+    {
+        <script type="text/javascript">
+            swal.fire("Başarılı", "@TempData["status"]", "success");
+        </script>
+    }
+
+}
+
+@*@if (TempData["status"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        @TempData["status"]
+    </div>
+}*@
+
+<h1>Index</h1>
+
+@using Microsoft.AspNetCore.Hosting.StaticWebAssets
+@model List<Product>
+
+<h1>Ürünler</h1>
+
+<a asp-controller="Products" asp-action="Add"><button type="button" class="btn btn-success">Ürün Ekle +</button></a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>İsim</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Renk</th>
+            @*        <th>Genişlik</th>
+            <th>Uzunluk</th>*@
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Stock</td>
+                <td>@item.Color</td>
+                @*            <td>@item.Width</td>
+            <td>@item.Height</td>*@
+                <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id"><button type="button" class="btn btn-danger">x</button></a></td>
+                <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><button type="button" class="btn btn-info">/</button></a></td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

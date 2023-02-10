@@ -1,0 +1,83 @@
+﻿@using AspNetCoreFirstExample.Web.Controllers
+
+@{
+    ViewData["Title"] = "Index";
+
+    var alert = "bu bir uyarı mesajıdır!!";
+}
+
+<h1>Ornek Controller Index</h1>
+
+<div>Günün Tarihi : @DateTime.Now.ToShortDateString()</div>
+
+
+@{
+
+    var datetime = DateTime.Now.ToShortDateString();
+    var message = "merhaba";
+
+    @: bugünün tarihi : @datetime
+
+    <div>mesaj : @message</div>
+
+}
+
+<hr />
+@model List<OrnekController.Product>;
+
+@foreach (var item in Model)
+{
+    <p>@item.Id - @item.Name</p>
+}
+
+@*
+@{
+    var name = ViewBag.name;
+
+    <strong>@name</strong>
+}
+
+<h1>@name</h1>
+
+<p>@ViewBag.name</p>
+
+<hr/>
+
+<p>Yaş:  @ViewData["age"]</p>
+
+<hr/>
+<h1>İsimler</h1>
+@foreach (var item in ViewData["names"] as List<String>)
+{
+    <p>@item</p>
+}
+
+<p> @ViewBag.person.Id -- @ViewBag.person.Name -- @ViewBag.person.Age </p>*@
+
+
+@if (1 == 1)
+{
+    <p>doğru</p>
+}
+else if(DateTime.IsLeapYear(DateTime.Now.Year))
+{
+    <p>artık yıl</p>
+}
+else
+{
+    <p>yanlış</p>
+}
+
+
+@for (int i = 0; i < 10; i++)
+{
+    <p>@i</p>
+}
+
+<hr/>
+
+@foreach (var item in Enumerable.Range(1, 10).ToList())
+{
+    <p>@item</p>
+}
+<p>@alert</p>
