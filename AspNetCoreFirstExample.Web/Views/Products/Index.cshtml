@@ -23,19 +23,23 @@
 <h1>Index</h1>
 
 @using Microsoft.AspNetCore.Hosting.StaticWebAssets
-@model List<Product>
+@model List<ProductViewModel>
 
 <h1>Ürünler</h1>
 
-<a asp-controller="Products" asp-action="Add"><button type="button" class="btn btn-success">Ürün Ekle +</button></a>
+<a asp-controller="Products" asp-action="Add"><button type="button" class="btn btn-success" style="float: right;">Ürün Ekle +</button></a>
 <table class="table">
-    <thead>
+    <thead class="table-dark">
         <tr>
             <th>Id</th>
             <th>İsim</th>
             <th>Fiyat</th>
             <th>Stok</th>
             <th>Renk</th>
+            <th>Yayınlansın mı?</th>
+            <th>Süre(Ay)</th>
+            <th>Açıklama</th>
+            <th>Tarih</th>
             @*        <th>Genişlik</th>
             <th>Uzunluk</th>*@
             <th>Sil</th>
@@ -51,6 +55,19 @@
                 <td>@item.Price</td>
                 <td>@item.Stock</td>
                 <td>@item.Color</td>
+                <td>@(item.IsPublish ? "Evet" : "Hayır")
+                </td>
+                <td>@item.Expire</td>
+                <td>@if (item.Description.Length > 20)
+                    {
+                        @item.Description.Substring(0,20)<p>...</p>
+                    }
+                    else
+                    {
+                        @item.Description
+                    }
+                </td>
+                <td>@item.PublishDate</td>
                 @*            <td>@item.Width</td>
             <td>@item.Height</td>*@
                 <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id"><button type="button" class="btn btn-danger">x</button></a></td>

@@ -7,14 +7,14 @@ namespace AspNetCoreFirstExample.Web.Controllers
 {
     public class HomeController : Controller
     {
-        Helper _helper;
+        //Helper _helper;
 
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, Helper helper)
+        public HomeController(ILogger<HomeController> logger /* Helper helper*/)
         {
             _logger = logger;
-            _helper = helper;
+           // _helper = helper;
         }
 
         public IActionResult Index()
@@ -24,8 +24,8 @@ namespace AspNetCoreFirstExample.Web.Controllers
 
         public IActionResult Privacy()
         {
-            var text = "asp.net";
-            var upperText = _helper.Upper(text);
+            //var text = "asp.net";
+            //var upperText = _helper.Upper(text);
             return View();
         }
 

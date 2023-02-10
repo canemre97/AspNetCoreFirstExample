@@ -1,3 +1,4 @@
+using System.Reflection;
 using AspNetCoreFirstExample.Web.Helpers;
 using AspNetCoreFirstExample.Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //builder.Services.AddScoped(new Helper());
 
 
-builder.Services.AddTransient<IHelper, Helper>();
+builder.Services.AddTransient<IHelper, Helper>(//sp =>
+//{
+//    return new Helper(true);
+//}
+);
 
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

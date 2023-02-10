@@ -1,21 +1,75 @@
 ﻿@{
     ViewData["Title"] = "Add";
 }
-@model Product
+@using System.Runtime.InteropServices.ComTypes
+@model ProductViewModel
 
 <h1>Ürün Ekleme</h1>
 
 <form asp-controller="Products" asp-action="Add" method="post">
-    <label>Ürün İsmi</label>
-    <input type="text" name="Name" asp-for="Name" /> <br />
-    <label>Ürün Fiyat</label>
-    <input type="number" name="Price" asp-for="Price" /> <br />
-    <label>Ürün Stok</label>
-    <input type="number" name="Stock" asp-for="Stock" /> <br />
-    <label>Ürün Renk</label>
-    <input type="text" name="Color" asp-for="Color" /> <br />
 
-    <button type="submit">Kaydet</button>
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Ürün İsmi</label>
+        <input class="form-control" asp-for="Name">
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label">Ürün Fiyat</label>
+        <input class="form-control" asp-for="Price">
+        <span class="text-danger" asp-validation-for="Price"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Stock" class="form-label">Ürün Stok</label>
+        <input type="number" class="form-control" asp-for="Stock">
+        <span class="text-danger" asp-validation-for="Stock"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Color" class="form-label">Ürün Renk</label>
+        <select class="form-select" asp-for="Color" asp-items="@ViewBag.ColorSelect">
+            <option value="">Renk Seçiniz...</option>
+        </select>
+        <span class="text-danger" asp-validation-for="Color"></span>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" asp-for="IsPublish">
+        <label class="form-check-label" asp-for="IsPublish">
+            Yayınlansın mı?
+        </label>
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label>Ürün kaç ay satışta kalacak?</label>
+        @foreach (var item in @ViewBag.Expire as Dictionary<string, int>)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="Expire@(item.Value)" asp-for="Expire" value="@item.Value">
+                <label class="form-check-label" asp-for="Expire" for="Expire@(item.Value)">
+                    @item.Key
+                </label>
+            </div>
+        }
+        <span class="text-danger" asp-validation-for="Expire"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <textarea asp-for="Description" class="form-control" placeholder="Ürün açıklaması giriniz." id="floatingTextarea"></textarea>
+        <label asp-for="Description">Ürün Açıklaması</label>
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PublishDate" class="form-label">Ürün Yayınlanma Tarihi</label>
+        <input class="form-control" asp-for="PublishDate">
+        <span class="text-danger" asp-validation-for="PublishDate"></span>
+    </div>  
+
+    <div class="mb-3">
+        <label asp-for="EmailAddress" class="form-label">E-Posta Adresi</label>
+        <input type="text" class="form-control" asp-for="EmailAddress">
+        <span class="text-danger" asp-validation-for="EmailAddress"></span>
+    </div>
+
+    <button class="btn btn-dark" type="submit">Kaydet</button>
 
 </form>
 
