@@ -3,29 +3,35 @@
     ViewData["Title"] = "Update";
 }
 
-@model Product
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AspNetCoreFirstExample.Web.ViewModels.ProductViewModel
 
 <h1>Ürün Güncelleme</h1>
 
 <form asp-controller="Products" asp-action="Update" method="post">
-
+    
+    <input type="hidden" asp-for="Id" />
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Ürün İsmi</label>
         <input class="form-control" asp-for="Name">
+        <span class="text-danger" asp-validation-for="Name"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Price" class="form-label">Ürün Fiyat</label>
         <input class="form-control" asp-for="Price">
+        <span class="text-danger" asp-validation-for="Price"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Stock" class="form-label">Ürün Stok</label>
         <input class="form-control" asp-for="Stock">
+        <span class="text-danger" asp-validation-for="Stock"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Color" class="form-label">Ürün Renk</label>
         <select class="form-select" asp-for="Color" asp-items="@ViewBag.ColorSelect">
             <option value="">Renk Seçiniz...</option>
         </select>
+        <span class="text-danger" asp-validation-for="Color"></span>
     </div>
     <div class="form-check">
         <input class="form-check-input" asp-for="IsPublish">
@@ -45,19 +51,28 @@
                 </label>
             </div>
         }
+        <span class="text-danger" asp-validation-for="Expire"></span>
     </div>
 
     <div class="form-floating mb-3">
         <textarea asp-for="Description" class="form-control" placeholder="Ürün açıklaması giriniz." id="floatingTextarea"></textarea>
         <label asp-for="Description">Ürün Açıklaması</label>
+        <span class="text-danger" asp-validation-for="Description"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="PublishDate" class="form-label">Ürün Yayınlanma Tarihi</label>
         <input class="form-control" asp-for="PublishDate">
+        <span class="text-danger" asp-validation-for="PublishDate"></span>
     </div>
 
-    <button class="btn btn-primary" type="submit">Kaydet</button>
+    <button class="btn btn-primary" type="submit">Ürün Güncelle</button>
     <button class="btn btn-danger" asp-controller="Products" asp-action="Index" type="submit">İptal</button>
 
 </form>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

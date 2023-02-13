@@ -34,7 +34,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <hr/>
+    <hr />
     <h2 class="display-4">Welcome</h2>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
@@ -44,3 +44,25 @@
 @await Html.PartialAsync("_MenuPartialView")
 
 @Html.Partial("_MenuPartialView")
+
+
+<div class="row">
+    <div class="col-md-4">
+        <partial name="~/PartialViews/_ProductListPartialView.cshtml" model="@ViewBag.productListPartialViewModel" />
+    </div>
+    <div class="col-md-4">
+
+        @*1.Yol*@
+        @*@await Component.InvokeAsync("ProductList",new {type=1});*@
+
+
+        @*2.Yol*@
+        <vc:product-list type="1"></vc:product-list>
+
+    </div>
+    <div class="col-md-4">
+
+        @await Component.InvokeAsync("ProductList",new {type=2});
+
+    </div>
+</div>

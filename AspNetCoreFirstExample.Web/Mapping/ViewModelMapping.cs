@@ -1,5 +1,5 @@
 ﻿using AspNetCoreFirstExample.Web.Models;
-using AspNetCoreFirstExample.Web.Models.ViewModels;
+using AspNetCoreFirstExample.Web.ViewModels;
 using AutoMapper;
 
 namespace AspNetCoreFirstExample.Web.Mapping
@@ -9,6 +9,7 @@ namespace AspNetCoreFirstExample.Web.Mapping
         public ViewModelMapping()
         {
             CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<Visitor, VisitorViewModel>().ReverseMap();
         }
     }
 }

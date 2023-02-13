@@ -1,10 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Add";
 }
-@using System.Runtime.InteropServices.ComTypes
-@model ProductViewModel
+
+@model AspNetCoreFirstExample.Web.ViewModels.ProductViewModel
 
 <h1>Ürün Ekleme</h1>
+
+@*<div asp-validation-summary="All"></div>*@
+<div asp-validation-summary="ModelOnly"></div>
 
 <form asp-controller="Products" asp-action="Add" method="post">
 
@@ -62,14 +65,19 @@
         <input class="form-control" asp-for="PublishDate">
         <span class="text-danger" asp-validation-for="PublishDate"></span>
     </div>  
-
+@*
     <div class="mb-3">
         <label asp-for="EmailAddress" class="form-label">E-Posta Adresi</label>
         <input type="text" class="form-control" asp-for="EmailAddress">
         <span class="text-danger" asp-validation-for="EmailAddress"></span>
     </div>
-
+*@
     <button class="btn btn-dark" type="submit">Kaydet</button>
 
 </form>
 
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
