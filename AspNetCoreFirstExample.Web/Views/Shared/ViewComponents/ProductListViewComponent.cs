@@ -4,6 +4,7 @@ using AspNetCoreFirstExample.Web.ViewModels;
 
 namespace AspNetCoreFirstExample.Web.Views.Shared.ViewComponents
 {
+    //[ViewComponent(Name = "p-list")]
     public class ProductListViewComponent : Microsoft.AspNetCore.Mvc.ViewComponent
     {
         private readonly AppDbContext _context;
