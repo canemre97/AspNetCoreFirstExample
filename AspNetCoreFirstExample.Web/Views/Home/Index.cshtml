@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    var product = new Product() { Id = 1, Name = "Kalem 1", Price = 100, Stock = 50 };
+
 }
 
 @section Scripts
@@ -35,15 +35,15 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <hr />
-    <h2 class="display-4">Hello World</h2>
-    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+    <h2 class="display-4">Welcome</h2>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
 <partial name="_MenuPartialView" />
 
-@*@await Html.PartialAsync("_MenuPartialView")
+@await Html.PartialAsync("_MenuPartialView")
 
-@Html.Partial("_MenuPartialView")*@
+@Html.Partial("_MenuPartialView")
 
 
 <div class="row">
@@ -62,16 +62,7 @@
     </div>
     <div class="col-md-4">
 
-        @await Component.InvokeAsync("ProductList",new {type=2})
+        @await Component.InvokeAsync("ProductList",new {type=2});
 
     </div>
-
-    <italic>can emre</italic>
-    <product-show product="@product"></product-show>
 </div>
-
-<hr />
-<img src="/images/space.jpg" style="width:100%" />
-
-<thumbnail image-src="/images/space.jpg"></thumbnail>
-@*<image-thumbnail image-src="/images/space.jpg"></image-thumbnail>*@

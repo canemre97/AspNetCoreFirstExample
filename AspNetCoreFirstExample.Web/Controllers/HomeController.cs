@@ -15,12 +15,11 @@ namespace AspNetCoreFirstExample.Web.Controllers
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
 
-        public HomeController(AppDbContext context, ILogger<HomeController> logger /* Helper helper*/, IMapper mapper)
+        public HomeController(AppDbContext context, ILogger<HomeController> logger /* Helper helper*/ )
         {
             _logger = logger;
-            // _helper = helper;
+           // _helper = helper;
             _context = context;
-            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -38,7 +37,7 @@ namespace AspNetCoreFirstExample.Web.Controllers
             {
                 Products = products
             };
-
+            
             return View();
         }
 
