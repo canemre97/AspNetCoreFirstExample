@@ -9,6 +9,7 @@ using AspNetCoreFirstExample.Web.ViewModels;
 
 namespace AspNetCoreFirstExample.Web.Controllers
 {
+    [Route("[controller]/[action]")]
     public class ProductsController : Controller
     {
         private readonly AppDbContext _context;
@@ -56,6 +57,28 @@ namespace AspNetCoreFirstExample.Web.Controllers
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
+        //[Route("[controller]/[action]/{productId}")]
+        [Route("urunler/urun/{productId}",Name="product")]
+        public IActionResult GetById(int productId)
+        {
+            var product = _context.Products.Find(productId);
+
+            return View(_mapper.Map<ProductViewModel>(product));
+        }
+
+        //[HttpGet("{page}/{pagesize}")]
+        [Route("[controller]/[action]/{page}/{pagesize}", Name ="productpage")]
+        public IActionResult Pages(int page, int pageSize)
+        {
+            var products = _context.Products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+
+            ViewBag.page = page;
+            ViewBag.pageSize = pageSize;
+            return View(_mapper.Map<List<ProductViewModel>>(products));
+        }
+
+        [HttpGet("{id}")]
         public IActionResult Remove(int id)
         {
             var product = _context.Products.Find(id);
@@ -209,7 +232,7 @@ namespace AspNetCoreFirstExample.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [AcceptVerbs("Get","Post")]
+        [AcceptVerbs("Get", "Post")]
         public IActionResult HasProductName(string Name)
         {
             var anyProduct = _context.Products.Any(x => x.Name.ToLower() == Name.ToLower());

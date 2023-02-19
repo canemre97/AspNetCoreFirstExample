@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Pages";
+}
+
+@model List<ProductViewModel>
+
+<h1>Pages</h1>
+<h3>Page: @ViewBag.page</h3>
+<h4>PageSize: @ViewBag.pagesize</h4>
+
+<a asp-controller="Products" asp-action="Index"><button type="button" class="btn btn-danger mb-3"><i class="fa fa-arrow-left"></i> Geri Dön</button></a>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>İsim</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Renk</th>
+            <th>Yayınlansın mı?</th>
+            <th>Süre(Ay)</th>
+            <th>Açıklama</th>
+            <th>Tarih</th>
+            @*        <th>Genişlik</th>
+            <th>Uzunluk</th>*@
+            <th>Sil</th>
+            <th>Güncelle</th>
+            <th>Git</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Stock</td>
+                <td>@item.Color</td>
+                <td>
+                    @(item.IsPublish ? "Evet" : "Hayır")
+                </td>
+                <td>@item.Expire</td>
+                <td>
+                    @if (item.Description.Length > 20)
+                    {
+                        @item.Description.Substring(0,20)
+
+                        <p>...</p>
+                    }
+                    else
+                    {
+                        @item.Description
+                    }
+                </td>
+                <td>@item.PublishDate</td>
+                @*            <td>@item.Width</td>
+            <td>@item.Height</td>*@
+                <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
+                <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button></a></td>
+                <td><a asp-controller="Products" asp-action="GetById" asp-route-productId="@item.Id"><button type="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button></a></td>
+            </tr>
+        }
+    </tbody>
+</table>

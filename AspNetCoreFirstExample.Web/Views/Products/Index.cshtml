@@ -26,7 +26,7 @@
 
 <h1>Ürünler</h1>
 
-<a asp-controller="Products" asp-action="Add"><button type="button" class="btn btn-success" style="float: right;">Ürün Ekle +</button></a>
+<a asp-controller="Products" asp-action="Add"><button type="button" class="btn btn-success mb-3" style="float: right;"><i class="fa-solid fa-plus"></i> Ürün Ekle</button></a>
 <table class="table">
     <thead class="table-dark">
         <tr>
@@ -43,6 +43,7 @@
             <th>Uzunluk</th>*@
             <th>Sil</th>
             <th>Güncelle</th>
+            <th>Git</th>
         </tr>
     </thead>
     <tbody>
@@ -69,11 +70,17 @@
                 <td>@item.PublishDate</td>
                 @*            <td>@item.Width</td>
             <td>@item.Height</td>*@
-                <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id"><button type="button" class="btn btn-danger">x</button></a></td>
-                <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><button type="button" class="btn btn-info">/</button></a></td>
+                <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
+                <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button></a></td>
+                @*<td><a asp-controller="Products" asp-action="GetById" asp-route-productId="@item.Id"><button type="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button></a></td>*@
+                <td><a asp-route="product" asp-route-productId="@item.Id"><button type="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button></a></td>
             </tr>
         }
     </tbody>
 
 
 </table>
+
+@*<a asp-controller="Products" asp-action="pages" asp-route-page="1" asp-route-pagesize="3">1. sayfadan 3 ürün ver</a>*@
+<a asp-route="productpage" asp-route-page="1" asp-route-pagesize="3">1. sayfadan 3 ürün ver</a>
+<a asp-controller="Products" asp-action="pages" asp-route-page="2" asp-route-pagesize="3">2. sayfadan 3 ürün ver</a>

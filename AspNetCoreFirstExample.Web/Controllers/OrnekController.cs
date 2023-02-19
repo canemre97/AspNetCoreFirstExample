@@ -2,6 +2,7 @@
 
 namespace AspNetCoreFirstExample.Web.Controllers
 {
+    [Route("[controller]/[action]")]
     public class OrnekController : Controller
     {
         public class Product
