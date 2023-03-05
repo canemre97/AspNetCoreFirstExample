@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Evaluation;
 using AspNetCoreFirstExample.Web.ViewModels;
+using AspNetCoreFirstExample.Web.Filters;
 
 namespace AspNetCoreFirstExample.Web.Controllers
 {
@@ -57,6 +58,7 @@ namespace AspNetCoreFirstExample.Web.Controllers
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         //[Route("[controller]/[action]/{productId}")]
         [Route("urunler/urun/{productId}",Name="product")]
         public IActionResult GetById(int productId)
@@ -77,7 +79,8 @@ namespace AspNetCoreFirstExample.Web.Controllers
             ViewBag.pageSize = pageSize;
             return View(_mapper.Map<List<ProductViewModel>>(products));
         }
-
+        
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpGet("{id}")]
         public IActionResult Remove(int id)
         {
@@ -177,6 +180,7 @@ namespace AspNetCoreFirstExample.Web.Controllers
             return View();
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpGet]
         public IActionResult Update(int id)
         {

@@ -4,10 +4,13 @@ using AspNetCoreFirstExample.Web.Helpers;
 using AspNetCoreFirstExample.Web.Models;
 using AspNetCoreFirstExample.Web.ViewModels;
 using AutoMapper;
+using AspNetCoreFirstExample.Web.Filters;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AspNetCoreFirstExample.Web.Controllers
 {
-    //[Route("[controller]/[action]")]
+    [LogFilter]
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         //Helper _helper;
@@ -24,9 +27,9 @@ namespace AspNetCoreFirstExample.Web.Controllers
             _mapper = mapper;
         }
 
-        //[Route("")]
-        //[Route("Home")]
-        //[Route("Home/Index")]
+        [Route("/")]
+        [Route("/Home")]
+        [Route("/Home/Index")]
         public IActionResult Index()
         {
             var products = _context.Products.OrderByDescending(x => x.Id).Select(x => new ProductPartialViewModel()
@@ -69,9 +72,11 @@ namespace AspNetCoreFirstExample.Web.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(ErrorViewModel errorViewModel)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            errorViewModel.RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
+            return View(errorViewModel);
         }
 
         public IActionResult Visitor()

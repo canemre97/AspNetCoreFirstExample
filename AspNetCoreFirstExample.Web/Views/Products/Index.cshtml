@@ -71,7 +71,7 @@
                 @*            <td>@item.Width</td>
             <td>@item.Height</td>*@
                 <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
-                <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button></a></td>
+                <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a></td>
                 @*<td><a asp-controller="Products" asp-action="GetById" asp-route-productId="@item.Id"><button type="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button></a></td>*@
                 <td><a asp-route="product" asp-route-productId="@item.Id"><button type="button" class="btn btn-success"><i class="fa fa-arrow-right"></i></button></a></td>
             </tr>
