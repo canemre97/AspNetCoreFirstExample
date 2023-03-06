@@ -49,10 +49,13 @@ namespace AspNetCoreFirstExample.Web.Controllers
             return View();
         }
 
+        [CustomExceptionFilter]
         public IActionResult Privacy()
         {
             //var text = "asp.net";
             //var upperText = _helper.Upper(text);
+
+            throw new Exception("Veritabanı ile ilgili bir hata meydana geldi.");
 
             var products = _context.Products.OrderByDescending(x => x.Id).Select(x => new ProductPartialViewModel()
             {

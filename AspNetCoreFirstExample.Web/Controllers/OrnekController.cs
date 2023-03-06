@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreFirstExample.Web.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreFirstExample.Web.Controllers
 {
@@ -10,6 +11,8 @@ namespace AspNetCoreFirstExample.Web.Controllers
             public int Id { get; set; }
             public string? Name { get; set; }
         }
+
+        [CustomResultFilter("x-version","1.0")]
         public IActionResult Index()
         {
             //ViewBag.name = "ASP.Net Core";

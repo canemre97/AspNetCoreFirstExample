@@ -42,7 +42,7 @@ namespace AspNetCoreFirstExample.Web.Controllers
             //}
         }
 
-
+        [CacheResourceFilter]
         public IActionResult Index( /*[FromServices] IHelper helper2*/)
         {
             //var text = "Asp.Net";
