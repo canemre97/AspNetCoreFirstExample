@@ -74,6 +74,14 @@
     *@
 
     <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Kategori</label>
+        <select class="form-select" asp-for="CategoryId" asp-items="@ViewBag.categorySelect">
+            <option value="">Kategori Seçiniz...</option>
+        </select>
+        <span class="text-danger" asp-validation-for="CategoryId"></span>
+    </div>
+
+    <div class="mb-3">
         <label for="formFileLg" class="form-label">Ürün Fotoğraf</label>
         <input class="form-control form-control-lg" asp-for="Image" type="file">
     </div>

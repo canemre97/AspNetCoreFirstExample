@@ -8,6 +8,7 @@ using Microsoft.Build.Evaluation;
 using AspNetCoreFirstExample.Web.ViewModels;
 using AspNetCoreFirstExample.Web.Filters;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreFirstExample.Web.Controllers
 {
@@ -53,12 +54,27 @@ namespace AspNetCoreFirstExample.Web.Controllers
 
             //var status = _helper.Equals(helper2);
 
+            List<ProductViewModel> products = _context.Products.Include(x => x.Category).Select(x => new ProductViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                CategoryName = x.Category.Name,
+                Color = x.Color,
+                Expire = x.Expire,
+                ImagePath = x.ImagePath,
+                IsPublish = x.IsPublish,
+                Price = x.Price,
+                PublishDate = x.PublishDate,
+                Stock = x.Stock
+            }).ToList();
+            return View(products);
 
-            var products = _context.Products.ToList();
+            //var products = _context.Products.ToList();
 
             //return View(products);
+            //return View(_mapper.Map<List<ProductViewModel>>(products));
 
-            return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
         [ServiceFilter(typeof(NotFoundFilter))]
@@ -111,6 +127,9 @@ namespace AspNetCoreFirstExample.Web.Controllers
                 new() {Data = "Kırmızı", Value = "Kırmızı"},
                 new() {Data = "Siyah", Value = "Siyah"}
             }, "Value", "Data");
+
+            var categories = _context.Category.ToList();
+            ViewBag.categorySelect = new SelectList(categories, "Id", "Name");
 
             //ViewBag.Expire = new List<string>() {"1 Ay", "3 Ay", "6 Ay", "12 Ay"};
             return View();
@@ -173,7 +192,7 @@ namespace AspNetCoreFirstExample.Web.Controllers
                         using var stream = new FileStream(path, FileMode.Create);
 
                         newProduct.Image.CopyTo(stream);
-              
+
                         product.ImagePath = randomImageName;
                     }
 
@@ -197,6 +216,8 @@ namespace AspNetCoreFirstExample.Web.Controllers
                 result = View();
             }
 
+            var categories = _context.Category.ToList();
+            ViewBag.categorySelect = new SelectList(categories, "Id", "Name");
 
             ViewBag.Expire = new Dictionary<string, int>()
             {
@@ -231,6 +252,9 @@ namespace AspNetCoreFirstExample.Web.Controllers
         public IActionResult Update(int id)
         {
             var product = _context.Products.Find(id);
+
+            var categories = _context.Category.ToList();
+            ViewBag.categorySelect = new SelectList(categories, "Id", "Name", product.CategoryId);
 
             ViewBag.ExpireValue = product.Expire;
             ViewBag.Expire = new Dictionary<string, int>()
@@ -274,6 +298,9 @@ namespace AspNetCoreFirstExample.Web.Controllers
                     new() {Data="Siyah",Value="Siyah"}
                 }, "Value", "Data", updateProduct.Color);
 
+                var categories = _context.Category.ToList();
+                ViewBag.categorySelect = new SelectList(categories, "Id", "Name",updateProduct.CategoryId);
+
                 return View();
             }
 
@@ -295,8 +322,8 @@ namespace AspNetCoreFirstExample.Web.Controllers
                 updateProduct.ImagePath = randomImageName;
             }
 
-
-            _context.Products.Update(_mapper.Map<Product>(updateProduct));
+            var product = _mapper.Map<Product>(updateProduct);
+            _context.Products.Update(product);
             _context.SaveChanges();
             TempData["status"] = "Ürün başarıyla güncellendi.";
             return RedirectToAction("Index");

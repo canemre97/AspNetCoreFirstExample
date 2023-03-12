@@ -24,7 +24,7 @@ namespace AspNetCoreFirstExample.Web.ViewModels
         [Required(ErrorMessage = "Açıklama alanı boş olamaz!")]
         [StringLength(300, MinimumLength = 10, ErrorMessage = "Açıklama alanına 10 ile 300 arası karakter girilebilir!")]
         public string? Description { get; set; }
-        [Required(ErrorMessage = "Renk seçimi boş olamaz!")]
+        [Required(ErrorMessage = "Renk seçiniz!")]
         public string? Color { get; set; }
         [Required(ErrorMessage = "Yayınlanma tarihi boş olamaz!")]
         public DateTime? PublishDate { get; set; }
@@ -37,6 +37,9 @@ namespace AspNetCoreFirstExample.Web.ViewModels
         [ValidateNever]
         public IFormFile? Image { get; set; }
         [ValidateNever]
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
+        [Required(ErrorMessage = "Kategori seçiniz!")]
+        public int CategoryId { get; set; }
+        public string? CategoryName { get; set; }
     }
 }
