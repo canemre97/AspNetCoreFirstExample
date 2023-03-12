@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "GetById";
 }
 
@@ -9,17 +8,28 @@
 
 <div class="card">
     <div class="card-header">
-      Ürün
+        Ürün
     </div>
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">
-            <div>Id : @Model.Id</div>
-            <div>Açıklama : @Model.Description</div>
-            <div>Stok : @Model.Stock</div>
-            <div>Renk : @Model.Color</div>
-            <div>Süre : @Model.Expire</div>
-            </p>
-        <a href="#" class="btn btn-primary">Satın Al ₺@Model.Price</a>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="card-text">
+                        <div>Id : @Model.Id</div>
+                        <div>Açıklama : @Model.Description</div>
+                        <div>Stok : @Model.Stock</div>
+                        <div>Renk : @Model.Color</div>
+                        <div>Süre : @Model.Expire</div>
+                    </p>
+                    <a href="#" class="btn btn-primary" style="position: absolute;
+    bottom: 20px;">Satın Al ₺@Model.Price</a>
+                </div>
+                <div class="col">
+                    <img style="width:100%; height:100%;" src="@(String.IsNullOrEmpty(Model.ImagePath) ? "/images/No-Image.png" : "/images/" + @Model.ImagePath )" />
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

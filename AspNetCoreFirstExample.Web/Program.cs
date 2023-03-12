@@ -3,6 +3,7 @@ using AspNetCoreFirstExample.Web.Filters;
 using AspNetCoreFirstExample.Web.Helpers;
 using AspNetCoreFirstExample.Web.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //builder.Services.AddScoped<Helper>(sp=>new Helper());
 //builder.Services.AddScoped(new Helper());
 
+builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
 builder.Services.AddTransient<IHelper, Helper>(//sp =>
 //{

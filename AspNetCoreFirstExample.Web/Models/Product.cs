@@ -11,5 +11,6 @@
         public DateTime? PublishDate { get; set; }
         public bool IsPublish { get; set; }
         public int Expire { get; set; }
+        public string? ImagePath { get; internal set; }
     }
 }

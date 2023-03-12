@@ -1,16 +1,19 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Update";
 }
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model AspNetCoreFirstExample.Web.ViewModels.ProductViewModel
+@model AspNetCoreFirstExample.Web.ViewModels.ProductUpdateViewModel
 
 <h1>Ürün Güncelleme</h1>
 
-<form asp-controller="Products" asp-action="Update" method="post">
-    
+<form asp-controller="Products" asp-action="Update" method="post" enctype="multipart/form-data">
+
     <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ImagePath" />
+    <div class="mb-3">
+        <img style="width:64px; height:64px;" src="@(String.IsNullOrEmpty(Model.ImagePath) ? "/images/No-Image.png" : "/images/" + @Model.ImagePath )" />
+    </div>
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Ürün İsmi</label>
         <input class="form-control" asp-for="Name">
@@ -45,7 +48,7 @@
         @foreach (var item in @ViewBag.Expire as Dictionary<string, int>)
         {
             <div class="form-check">
-            <input checked="@(item.Value==ViewBag.ExpireValue ? true : false)" class="form-check-input" type="radio" id="Expire@(item.Value)" asp-for="Expire" value="@item.Value">
+                <input checked="@(item.Value==ViewBag.ExpireValue ? true : false)" class="form-check-input" type="radio" id="Expire@(item.Value)" asp-for="Expire" value="@item.Value">
                 <label class="form-check-label" asp-for="Expire" for="Expire@(item.Value)">
                     @item.Key
                 </label>
@@ -66,13 +69,18 @@
         <span class="text-danger" asp-validation-for="PublishDate"></span>
     </div>
 
+    <div class="mb-3">
+        <label for="formFileLg" class="form-label">Ürün Fotoğraf</label>
+        <input class="form-control form-control-lg" asp-for="Image" type="file">
+    </div>
+
     <button class="btn btn-primary" type="submit">Ürün Güncelle</button>
     <button class="btn btn-danger" asp-controller="Products" asp-action="Index" type="submit">İptal</button>
 
 </form>
 
 @section Scripts
-{
+    {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

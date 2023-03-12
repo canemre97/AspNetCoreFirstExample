@@ -9,7 +9,7 @@
 @*<div asp-validation-summary="All"></div>*@
 <div asp-validation-summary="ModelOnly"></div>
 
-<form asp-controller="Products" asp-action="Add" method="post">
+<form asp-controller="Products" asp-action="Add" method="post" enctype="multipart/form-data">
 
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Ürün İsmi</label>
@@ -64,20 +64,26 @@
         <label asp-for="PublishDate" class="form-label">Ürün Yayınlanma Tarihi</label>
         <input class="form-control" asp-for="PublishDate">
         <span class="text-danger" asp-validation-for="PublishDate"></span>
-    </div>  
-@*
-    <div class="mb-3">
-        <label asp-for="EmailAddress" class="form-label">E-Posta Adresi</label>
-        <input type="text" class="form-control" asp-for="EmailAddress">
-        <span class="text-danger" asp-validation-for="EmailAddress"></span>
     </div>
-*@
+    @*
+    <div class="mb-3">
+    <label asp-for="EmailAddress" class="form-label">E-Posta Adresi</label>
+    <input type="text" class="form-control" asp-for="EmailAddress">
+    <span class="text-danger" asp-validation-for="EmailAddress"></span>
+    </div>
+    *@
+
+    <div class="mb-3">
+        <label for="formFileLg" class="form-label">Ürün Fotoğraf</label>
+        <input class="form-control form-control-lg" asp-for="Image" type="file">
+    </div>
+
     <button class="btn btn-dark" type="submit">Kaydet</button>
 
 </form>
 
 @section Scripts
-{
+    {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
