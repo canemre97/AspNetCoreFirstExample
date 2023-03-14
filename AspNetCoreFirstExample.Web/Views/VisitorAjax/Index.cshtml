@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            function loadComments() {
+                $("#loading").show();
+                $("#comments").html("");
+                $.ajax({
+                    type: "GET",
+                    url: "/VisitorAjax/VisitorCommentList",
+                    success: function (data) {
+                        $.each(data, function (index, item) {
+                            console.log(data);
+                            var comment =
+                                `<div class="card mb-2" style="width: 100%">
+                                      <div class="card-body">
+                                      <h5 class="card-title">${item.name}</h5>
+                                      <h6 class="card-subtitle mb-2 text-muted">${item.date}</h6>
+                                      <p class="card-text">${item.comment}</p>
+                                      </div>
+                                </div>`;
+                            $("#comments").append(comment);
+                        });
+                        $("#loading").hide();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+
+            loadComments();
+
+            $("#btnSave").click(function () {
+                var name = $("#Name").val();
+                var comment = $("#Comment").val();
+                if ($("#Name").val() != null || $("#Comment").val() != null) {
+                    var jsonData = {
+                        "name": name,
+                        "comment": comment
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/VisitorAjax/SaveVisitorComment",
+                        data: jsonData,
+                        success: function (data) {
+                            console.log(data);
+                            swal.fire("Başarılı!", "Yorum kayıt edildi.", "success");
+                            $("#Name").val("");
+                            $("#Comment").val("");
+                            loadComments();
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            swal.fire("Başarısız!", "Yorum kayıt edilemedi.", "error");
+                        }
+                    });
+                }
+                else {
+                    swal.fire("Uyarı!", "İsim ve yorum boş olmaz.", "warning");
+                    return;
+                }
+            });
+        });
+    </script>
+ }
+
+
+<div class="mb-3">
+    <label for="Name" class="form-label">İsim</label>
+    <input class="form-control" id="Name" name="Name">
+</div>
+<div class="form-floating mb-3">
+    <textarea class="form-control" id="Comment" name="Comment" placeholder="Yorum yazınız.." style="height: 100px"></textarea>
+    <label for="Comment" class="form-label">Yorum</label>
+</div>
+<div>
+    <button type="button" id="btnSave" class="btn btn-primary">Gönder</button>
+</div>
+
+<hr />
+
+<div id="loading">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3" id="comments">
+</div>
+
